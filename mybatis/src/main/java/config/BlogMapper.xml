@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+ 
+<mapper namespace="BlogMapper">
+
+<resultMap id="BlogMap" type="com.miaxis.entity.Blog" >
+	<id column="id" jdbcType="INTEGER" property="id"/>
+	<result column="title" jdbcType="VARCHAR" property="title"/><!-- 不写此句则title属性的值为null，看来所有的映射都需要显示的手动转换 -->
+	<result column="content" jdbcType="VARCHAR" property="content"/>
+	
+	<association property="author" javaType="com.miaxis.entity.Author"><!-- 这里和collection加一个resultMap属性（这样可能会引起循环映射） -->
+		<id  column="id" property="id"/>
+		<result column="name" property="name"/>
+	</association>
+</resultMap>
+
+<!-- 根据id获得单条blog记录 -->
+<select id="selectBlogById" resultType="com.miaxis.entity.Blog">
+	select * from blog where id = #{id}
+</select>
+
+<!-- 根据某个blog获取其所属的author -->
+<select id="selectBlogAuthorById" resultMap="BlogMap">
+	select b.id b_id,b.title,b.content,a.id,a.name from blog b,author a where b.authorID=a.id and b.id = #{id}
+</select>
+
+</mapper>
