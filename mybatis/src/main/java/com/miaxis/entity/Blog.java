@@ -5,6 +5,25 @@ public class Blog {
 	private String title;
 	private String content;
 	private Author author;
+	
+	
+	public Blog() {
+		super();
+	}
+	
+	public Blog(int id, String title) {
+		super();
+		this.id = id;
+		this.title = title;
+	}
+
+	
+	public Blog(String title, String content) {
+		super();
+		this.title = title;
+		this.content = content;
+	}
+
 	public int getId() {
 		return id;
 	}

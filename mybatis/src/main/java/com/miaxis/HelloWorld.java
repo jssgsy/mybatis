@@ -17,14 +17,14 @@ import com.miaxis.entity.Blog;
 public class HelloWorld {
 
 	@Test
-	public void test() throws IOException{
+	public void get() throws IOException{
 		String resource = "config/mybatis-config.xml";//config在src目录下
 		InputStream inputStream = Resources.getResourceAsStream(resource);
 		SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
 		SqlSession session = sqlSessionFactory.openSession();
 		
 		//根据id获得单条blog记录
-		Blog blog = session.selectOne("BlogMapper.selectBlogById", 1);		
+		Blog blog = session.selectOne("BlogMapper.selectBlogById", new Blog(2,"newTitle"));		
 		System.out.println(blog.getTitle());
 		System.out.println(blog.getContent());
 		
@@ -46,7 +46,53 @@ public class HelloWorld {
 			Blog blog = (Blog) iterator.next();
 			System.out.println(blog.getTitle());
 			System.out.println(blog.getContent());
-		}*/
-		
+		}*/		
 	}	
+	
+	
+	/**
+	 * 根据id删blog
+	 * @throws IOException 
+	 */
+	@Test
+	public void deleteBlogById() throws IOException{
+		String resource = "config/mybatis-config.xml";//config在src目录下
+		InputStream inputStream = Resources.getResourceAsStream(resource);
+		SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		sqlSession.delete("BlogMapper.deleteById", 1);
+		sqlSession.commit();		
+	}
+	
+	/**
+	 * 更新单条blog
+	 * @throws IOException 
+	 */
+	@Test
+	public void updateBlog() throws IOException{
+		String resource = "config/mybatis-config.xml";//config在src目录下
+		InputStream inputStream = Resources.getResourceAsStream(resource);
+		SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		sqlSession.delete("BlogMapper.update", new Blog(2,"newTitle"));
+		sqlSession.commit();		
+	}
+	
+	/**
+	 * 新增单条blog
+	 * @throws IOException 
+	 */
+	@Test
+	public void addBlog() throws IOException{
+		String resource = "config/mybatis-config.xml";//config在src目录下
+		InputStream inputStream = Resources.getResourceAsStream(resource);
+		SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		sqlSession.delete("BlogMapper.add", new Blog("newTitle","newContent"));
+		sqlSession.commit();		
+	}
+	
+	
+	
+	
 }
