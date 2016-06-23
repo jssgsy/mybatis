@@ -1,7 +1,7 @@
 package com.miaxis.entity;
 
 public class Blog {
-	private int id;
+	private Long id;
 	private String title;
 	private String content;
 	private Author author;
@@ -10,26 +10,32 @@ public class Blog {
 	public Blog() {
 		super();
 	}
+
+    public Blog(Long id){
+        this.id = id;
+    }
 	
-	public Blog(int id, String title) {
+	public Blog(Long id, String title) {
 		super();
 		this.id = id;
 		this.title = title;
 	}
 
-	
+
 	public Blog(String title, String content) {
 		super();
 		this.title = title;
 		this.content = content;
 	}
 
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
-	public void setId(int id) {
+
+	public void setId(Long id) {
 		this.id = id;
 	}
+
 	public String getTitle() {
 		return title;
 	}

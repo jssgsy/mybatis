@@ -2,8 +2,6 @@ package com.miaxis;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Iterator;
-import java.util.List;
 
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
@@ -11,7 +9,6 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.junit.Test;
 
-import com.miaxis.entity.Author;
 import com.miaxis.entity.Blog;
 
 public class HelloWorld {
@@ -24,7 +21,7 @@ public class HelloWorld {
 		SqlSession session = sqlSessionFactory.openSession();
 		
 		//根据id获得单条blog记录
-		Blog blog = session.selectOne("BlogMapper.selectBlogById", new Blog(2,"newTitle"));		
+		Blog blog = session.selectOne("BlogMapper.selectBlogById", new Blog((long)2));
 		System.out.println(blog.getTitle());
 		System.out.println(blog.getContent());
 		
@@ -60,7 +57,7 @@ public class HelloWorld {
 		InputStream inputStream = Resources.getResourceAsStream(resource);
 		SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
 		SqlSession sqlSession = sqlSessionFactory.openSession();
-		sqlSession.delete("BlogMapper.deleteById", 1);
+		sqlSession.delete("BlogMapper.deleteById", 2);
 		sqlSession.commit();		
 	}
 	
@@ -74,7 +71,7 @@ public class HelloWorld {
 		InputStream inputStream = Resources.getResourceAsStream(resource);
 		SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
 		SqlSession sqlSession = sqlSessionFactory.openSession();
-		sqlSession.delete("BlogMapper.update", new Blog(2,"newTitle"));
+		sqlSession.update("BlogMapper.update", new Blog((long)3,"new blog title"));
 		sqlSession.commit();		
 	}
 	
@@ -84,11 +81,11 @@ public class HelloWorld {
 	 */
 	@Test
 	public void addBlog() throws IOException{
-		String resource = "config/mybatis-config.xml";//config在src目录下
+		String resource = "config/mybatis-config.xml";
 		InputStream inputStream = Resources.getResourceAsStream(resource);
 		SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
 		SqlSession sqlSession = sqlSessionFactory.openSession();
-		sqlSession.delete("BlogMapper.add", new Blog("newTitle","newContent"));
+		sqlSession.insert("BlogMapper.add", new Blog("blogTitle3","blogContent3"));
 		sqlSession.commit();		
 	}
 	
