@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+        
+<generatorConfiguration>
+
+    <!--导入属性文件(名字任取),相对于类路径,这里没起作用-->
+    <!--<properties resource="generatorConfig.properties" />-->
+
+    <!--这里需要指定mysql驱动包的路径名-->
+    <classPathEntry
+            location="/Users/Univ/.m2/repository/mysql/mysql-connector-java/5.1.34/mysql-connector-java-5.1.34.jar" />
+    <context id="mbgTest" targetRuntime="MyBatis3">
+
+
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://localhost:3306/mybatis"
+                        userId="test"
+                        password="123">
+        </jdbcConnection>
+
+        <!--注意targetProject的写法,model包会自动被创建-->
+        <javaModelGenerator targetPackage="model" targetProject="src/main/java" >
+            <property name="trimStrings" value="true" />
+        </javaModelGenerator>
+
+        <sqlMapGenerator targetPackage="mapper" targetProject="src/main/resources" />
+        <table tableName="blog">
+            <generatedKey column="id" sqlStatement="mysql" identity="true"></generatedKey>
+        </table>
+    </context>
+</generatorConfiguration>
