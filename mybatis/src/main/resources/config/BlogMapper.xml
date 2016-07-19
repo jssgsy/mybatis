@@ -10,6 +10,8 @@
 	<result column="title" jdbcType="VARCHAR" property="title"/><!-- 不写此句则title属性的值为null，看来所有的映射都需要显示的手动转换 -->
 	<result column="content" jdbcType="VARCHAR" property="content"/>
 
+	<!--<result column="name" jdbcType="VARCHAR" property="author.name" />-->
+	<!--下面的association标签可以使用上面的result标签替换。-->
 	<association property="author" javaType="com.miaxis.entity.Author">
 	<!-- 这里和collection加一个resultMap属性不同（虽然也可以，可以达到复用的目的） -->
 		<id  column="id" property="id"/>
@@ -34,7 +36,7 @@
 
 <!-- 根据某个blog获取其所属的author -->
 <select id="selectBlogAuthorById" resultMap="BlogMap">
-	select b.id b_id,b.title,b.content,a.id,a.name from blog b,author a where b.authorID=a.id and b.id = #{id}
+	select b.id b_id,b.title,b.content,a.id,a.name as name from blog b,author a where b.author_id=a.id and b.id = #{id}
 </select>
 
 <!-- 根据id删除单条记录 -->
