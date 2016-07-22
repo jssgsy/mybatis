@@ -18,7 +18,7 @@
 
 <!-- 根据某个author找出其所有的blog -->
 <select id="selectAuthor" resultMap="AuthorMap">
-	select b.id b_id,title,content,authorID,a.id a_id,name from  blog b,author a where b.authorID=a.id and a.id=#{id}
+	select b.id b_id,title,content,author_id,a.id a_id,name from  blog b,author a where b.author_id=a.id and a.id=#{id}
 </select>
 
 </mapper>

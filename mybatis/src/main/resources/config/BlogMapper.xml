@@ -21,17 +21,7 @@
 
 <!-- 根据id获得单条blog记录 -->
 <select id="selectBlogById" resultType="com.miaxis.entity.Blog" >
-	select * from blog
-	<where>
-		<if test="id == 3 ">
-		id = #{id}
-	</if>
-	<if test="title == 'newTitle'">
-		and title = #{title}
-	</if>
-	</where>
-
-
+	select * from blog where id = #{id}
 </select>
 
 <!-- 根据某个blog获取其所属的author -->
