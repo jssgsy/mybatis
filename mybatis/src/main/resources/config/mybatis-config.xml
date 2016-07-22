@@ -19,5 +19,6 @@
  <mappers>
  	<mapper resource="config/BlogMapper.xml"/>
  	<mapper resource="config/AuthorMapper.xml"/>
+ 	<mapper resource="config/BlogChildMapper.xml"/>
  </mappers>
 </configuration>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--1. 继承实体类的映射,子实体类能映射到所有父类中的属性(当然包括复合类型),即使这些属性是private的。
+    即相当于子实体类完全继承了父实体类的属性。
+    2. BlogChildMapper.xml文件不一定需要存在,因为本质只是一条sql语句,可以放在其他地方(如BlogMapper.xml);
+-->
+<mapper namespace="BlogChildMapper">
+
+    <!--继承自BlogMapper.BlogMap,用以配置继承的属性-->
+    <resultMap id="BlogChildMap" type="com.miaxis.entity.BlogChild" extends="BlogMapper.BlogMap">
+
+        <!--在这里配置BlogChild类中新增的属性-->
+        <result column="authorName" property="auhtorName" jdbcType="VARCHAR"/>
+    </resultMap>
+
+
+    <!-- 获取blog其所属的author,然后封装成blodChild对象
+        注意,因为这里将a.name取别名为authorName,所以BlogMapper.BlogMap中的association中的name将映射不到;
+        如果将a.name取别名为name则可以。如果将上面BlogChildMap中的column="authorName"改成column="name",
+        则这里也能映射到.当然,实际开发中肯定不会两者都使用。
+     -->
+    <select id="selectBlogChild" resultMap="BlogChildMap">
+        select b.id b_id,b.title,b.content,a.id a_id,a.name as authorName from blog b,author a where b.author_id=a.id
+    </select>
+
+</mapper>
