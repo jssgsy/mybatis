@@ -20,12 +20,23 @@
                         password="123">
         </jdbcConnection>
 
-        <!--注意targetProject的写法,model包会自动被创建-->
+        <!--存放自动生成的实体类Xxx(Blog)以及XxxExample(BlogExample)实体类的地方
+        注意targetProject的写法,model包会自动被创建-->
         <javaModelGenerator targetPackage="model" targetProject="src/main/java" >
             <property name="trimStrings" value="true" />
         </javaModelGenerator>
 
+        <!--存放XxxMapper.xml(BlogExample.xml)文件的地方-->
         <sqlMapGenerator targetPackage="mapper" targetProject="src/main/resources" />
+
+        <!--存放自动生成的XxxMapper(BlogMapper.java)接口类的地方.
+           注意type的值不同生成的接口类型有很大不同,如这里指定为XMLMAPPER,
+           则说明生成的是不带注解的mapper接口,需要依赖xml映射文件。
+           javaClientGenerator标签的顺序有讲究,必须放在sqlMapGenerator标签之后。
+       -->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="mapper"  targetProject="src/main/java">
+        </javaClientGenerator>
+
         <table tableName="blog">
             <generatedKey column="id" sqlStatement="mysql" identity="true"></generatedKey>
         </table>

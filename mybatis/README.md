@@ -17,3 +17,9 @@
 
 ## 配置generatorConfig.xml
 generatorConfig.xml是MBG的核心配置文件,放在classpath下。
+
+## maven运行方法
+
+**mvn mybatis-generator:generate**
+
+
