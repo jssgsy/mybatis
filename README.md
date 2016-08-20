@@ -8,3 +8,6 @@
 4. **表需要先存在**,表之间的关系也需要在数据库中已经建立好（见第2点）；
 5. 和数据库打交道的是`SqlSession`实例，SqlSession可从SqlSessionFactory中得到;
 6. static语句块在制作util包中可能很有用；
+
+# 功能说明
+* mybatis的insert,update,delete方法返回值的意义；
