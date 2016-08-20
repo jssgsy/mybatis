@@ -40,7 +40,7 @@
 </update>
 
 <!-- 新增单个blog -->
-<insert id="add" parameterType="com.miaxis.entity.Blog">
+<insert id="insert" parameterType="com.miaxis.entity.Blog" useGeneratedKeys="true" keyProperty="id">
 	insert into blog(title,content) values(#{title},#{content})
 </insert>
 
