@@ -46,4 +46,9 @@
 	insert into blog(title,content) values(#{title},#{content})
 </insert>
 
+    <!--
+    useGeneratedKeys：仅对insert和update有用）这会令MyBatis使用JDBC的getGeneratedKeys方法来取出由数据库内部生成的主键（比如：像 MySQL 和SQL Server这样的关系数据库管理系统的自动递增字段），默认值：false;
+    keyProperty：仅对insert和update有用唯一标记一个属性，MyBatis会通过getGeneratedKeys的返回值或者通过insert语句的selectKey子元素设置它的键值，默认：unset。如果希望得到多个生成的列，也可以是逗号分隔的属性名称列表。
+    -->
+
 </mapper>
