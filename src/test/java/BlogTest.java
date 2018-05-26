@@ -23,6 +23,10 @@ import java.io.IOException;
  *      假设数据库中只存在id为1的记录,则delete from blog where id in (1,2,3);也能执行成功。
  *      结果是成功删除id为1的记录并返回1。即使数据库中没有记录为1,2,3的记录,上述sql语句也能正确执行,返回0.
  *
+ * 3. SqlSession完全包含了面向数据库执行SQL命令所需的所有方法。你可以通过SqlSession实例来直接执行已映射的SQL语句
+ *
+ * 4. sqlSession的insert、update、selectOne、delete等的第一个参数是相应mapper文件中s映射语句的id，如BlogMapper.insert表示如BlogMapper中id为insert的sql映射语句
+ *
  */
 public class BlogTest {
 

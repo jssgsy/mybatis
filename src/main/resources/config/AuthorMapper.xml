@@ -1,23 +1,26 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
- PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
- "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
- 
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
 <mapper namespace="AuthorMapper">
 
-<resultMap  id="AuthorMap" type="com.miaxis.entity.Author">
-	<id column="id" jdbcType="INTEGER" property="id"/><!-- 虽然select中是b_id，但这里column的值可以直接写成id -->
-	<result column="name" jdbcType="VARCHAR" property="name"/>
-	<collection property="blogList" resultMap="BlogMapper.BlogMap"></collection><!-- blog对象属性的映射是BlogMapper的责任 -->
-</resultMap>
+    <resultMap id="AuthorMap" type="com.miaxis.entity.Author">
+        <!-- 虽然select中是b_id，但这里column的值可以直接写成id -->
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
 
-<!-- 根据id获取单挑author记录 -->
- <select id="selectAuthorById" resultType="com.miaxis.entity.Author">
+        <!-- blog对象属性的映射是BlogMapper的责任 -->
+        <collection property="blogList" resultMap="BlogMapper.BlogMap"></collection>
+    </resultMap>
+
+    <!-- 根据id获取单挑author记录 -->
+    <select id="selectAuthorById" resultType="com.miaxis.entity.Author">
  	select * from author where id = #{id}
  </select>
 
-<!-- 根据某个author找出其所有的blog -->
-<select id="selectAuthor" resultMap="AuthorMap">
+    <!-- 根据某个author找出其所有的blog -->
+    <select id="selectAuthor" resultMap="AuthorMap">
 	select b.id b_id,title,content,author_id,a.id a_id,name from  blog b,author a where b.author_id=a.id and a.id=#{id}
 </select>
 
