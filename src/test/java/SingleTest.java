@@ -1,4 +1,5 @@
 import com.miaxis.entity.Single;
+import com.miaxis.mapper.SingleMapper;
 import com.miaxis.util.MybatisSqlSessionUtil;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -123,6 +124,20 @@ public class SingleTest {
         List<Single> list = sqlSession.selectList("SingleMapper.getByWhere", single);
         System.out.println(list);
 
+    }
+
+    /**
+     * 使用注解而不是xml文件的方式
+     * 注意，已经在mybatis-config.xml文件中引入了SingleMapper
+     * @throws IOException
+     */
+    @Test
+    public void annotation() throws IOException {
+        SqlSessionFactory sqlSessionFactory = MybatisSqlSessionUtil.getSqlSessionFactory();
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        // 获取mapper接口
+        SingleMapper singleMapper = sqlSession.getMapper(SingleMapper.class);
+        System.out.println(singleMapper.totalCount());
     }
 
 }

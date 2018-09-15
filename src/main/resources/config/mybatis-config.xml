@@ -35,14 +35,14 @@
     <mappers>
         <!--相对于类路径，即这里的src/main/resources-->
 
-        <!--1. 使用相对于类路径的资源引用-->
+        <!--1. 使用相对于类路径的资源引用，即使用xml文件的方式-->
         <mapper resource="config/BlogMapper.xml"/>
         <mapper resource="config/AuthorMapper.xml"/>
         <mapper resource="config/BlogChildMapper.xml"/>
         <mapper resource="config/SingleMapper.xml"/>
 
-        <!--2. 使用映射器接口实现类的完全限定类名 -->
-        <!--<mapper class="xxx"/>-->
+        <!--2. 使用映射器接口实现类的完全限定类名，即使用接口注解的方式 -->
+        <mapper class="com.miaxis.mapper.SingleMapper"/>
 
         <!--3. 将包内的映射器接口实现全部注册为映射器，即此包下的所有接口都会被自动注册，是上述2的简化写法，不适应于mapper文件的引入 -->
         <!--<package name="com.xxx"/>-->

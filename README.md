@@ -9,6 +9,17 @@
 5. 和数据库打交道的是`SqlSession`实例，SqlSession可从SqlSessionFactory中得到;
 6. static语句块在制作util包中可能很有用；
 
+
+# 使用xml方式与接口注解方式
+## 使用xml方式
+* 引入相应xml文件；
+* 写好相应的statement并在程序中使用即可(参考SingleMapper.xml文件)；
+
+## 使用接口注解方式
+与使用xml方式一样
+* 引入相应的mapper接口；
+* * 写好相应的statement并在程序中使用即可(参考SingleMapper接口)；
+
 # 功能说明
 * mybatis的insert,update,delete方法返回值的意义；
 
