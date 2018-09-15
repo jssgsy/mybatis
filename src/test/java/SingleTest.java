@@ -91,7 +91,20 @@ public class SingleTest {
         sqlSession.commit();
     }
 
-
-
-
+    /**
+     * 动态sql，set与if标签
+     */
+    @Test
+    public void update2() throws IOException {
+        SqlSessionFactory sqlSessionFactory = MybatisSqlSessionUtil.getSqlSessionFactory();
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        Single single = new Single();
+        single.setId((long) 4);
+        single.setAge(10);
+        single.setAddress("yyyyy");
+        Integer affected = sqlSession.update("SingleMapper.update2", single);
+        System.out.println(affected);
+        // 增、删、改记得要手动commit
+        sqlSession.commit();
+    }
 }

@@ -66,5 +66,17 @@
         DELETE FROM single where id = #{id}
     </delete>
 
+    <!--注意，这里有set标签与if标签-->
+    <update id="update2" parameterType="Single">
+        UPDATE single
+        <set>
+            # 注意，这里的逗号不可少
+            <if test="name != null">name=#{name},</if>
+            <if test="age != null">age=#{age},</if>
+            # 注意，最后的逗号不需要
+            <if test="address != null">address=#{address}</if>
+        </set>
+        WHERE id = #{id}
+    </update>
 
 </mapper>
