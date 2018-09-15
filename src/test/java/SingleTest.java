@@ -5,6 +5,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.util.List;
 
 /**
  * mybatis-测试单个实体类
@@ -107,4 +108,21 @@ public class SingleTest {
         // 增、删、改记得要手动commit
         sqlSession.commit();
     }
+
+    /**
+     * 动态sql，where、trim标签
+     * @throws IOException
+     */
+    @Test
+    public void getByWhere()  throws IOException {
+        SqlSessionFactory sqlSessionFactory = MybatisSqlSessionUtil.getSqlSessionFactory();
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        Single single = new Single();
+        single.setAge(10);
+        single.setAddress("yyyyy");
+        List<Single> list = sqlSession.selectList("SingleMapper.getByWhere", single);
+        System.out.println(list);
+
+    }
+
 }
