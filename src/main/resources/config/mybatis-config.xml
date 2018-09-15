@@ -14,6 +14,11 @@
         <property name="password" value="123"/>
     </properties>
 
+    <!--别名定义-->
+    <typeAliases>
+        <typeAlias type="com.miaxis.entity.Single" alias="Single"/>
+    </typeAliases>
+
     <environments default="development">
         <environment id="development">
             <transactionManager type="JDBC"/>
@@ -34,6 +39,7 @@
         <mapper resource="config/BlogMapper.xml"/>
         <mapper resource="config/AuthorMapper.xml"/>
         <mapper resource="config/BlogChildMapper.xml"/>
+        <mapper resource="config/SingleMapper.xml"/>
 
         <!--2. 使用映射器接口实现类的完全限定类名 -->
         <!--<mapper class="xxx"/>-->

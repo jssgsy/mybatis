@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+1. 注意，已经在mybatis-config.xml文件中定义了Single别名
+-->
+
+<mapper namespace="SingleMapper">
+
+    <!--映射成type属性指定的类-->
+    <resultMap id="singleMap" type="Single">
+        <!-- 虽然select中是b_id，但这里column的值可以直接写成id -->
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <!--如果是基本类型，则jdbcType可省略-->
+        <result column="age" property="age"/>
+        <result column="address" property="address"/>
+    </resultMap>
+
+    <!--适用于表中字段名与实体类中对应的字段名一模一样-->
+    <select id="getById" resultType="Single">
+        SELECT *
+        FROM single
+        WHERE id = #{id}
+    </select>
+
+    <!--允许表中字段名与类中属性名不一样，此时可利用as来解决-->
+    <select id="getById2" resultType="Single">
+        SELECT
+            id      AS id,
+            name    AS name,
+            address AS address,
+            age     AS age
+        FROM single
+        WHERE id = #{id}
+    </select>
+
+    <!-- 表中字段名与类中属性名不一样，也可使用resultMap来解决 -->
+    <select id="getById3" resultMap="singleMap">
+        SELECT *
+        FROM single
+        WHERE id = #{id}
+    </select>
+
+    <!--如果查询语句返回的是基本类型，则用resultType指定，注意，必须要指定-->
+    <select id="totalCount" resultType="int">
+        SELECT count(id)
+        FROM single
+    </select>
+
+    <!--返回的必定是int型-->
+    <insert id="insert" parameterType="Single">
+        INSERT INTO single (name, age, address) VALUES (#{name}, #{age}, #{address})
+    </insert>
+
+    <!--返回的必定是int型-->
+    <insert id="update" parameterType="Single">
+        UPDATE single
+        SET name = #{name}, address = #{address}
+        WHERE id = #{id}
+    </insert>
+
+    <delete id="deleteById">
+        DELETE FROM single where id = #{id}
+    </delete>
+
+
+</mapper>
