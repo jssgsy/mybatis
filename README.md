@@ -18,7 +18,7 @@
 ## 使用接口注解方式
 与使用xml方式一样
 * 引入相应的mapper接口；
-* * 写好相应的statement并在程序中使用即可(参考SingleMapper接口)；
+* 写好相应的statement并在程序中使用即可(参考SingleMapper接口)；
 
 # 功能说明
 * mybatis的insert,update,delete方法返回值的意义；

@@ -140,4 +140,59 @@ public class SingleTest {
         System.out.println(singleMapper.totalCount());
     }
 
+
+    /**
+     * 参数：单个基本类型，单个返回值
+     * @throws IOException
+     */
+    @Test
+    public void selectById() throws IOException {
+        SqlSessionFactory sqlSessionFactory = MybatisSqlSessionUtil.getSqlSessionFactory();
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        // 获取mapper接口
+        SingleMapper singleMapper = sqlSession.getMapper(SingleMapper.class);
+        System.out.println(singleMapper.getById((long) 1));
+    }
+
+    /**
+     * 参数：多基本类型，单个返回值
+     * @throws IOException
+     */
+    @Test
+    public void getByNameAge() throws IOException {
+        SqlSessionFactory sqlSessionFactory = MybatisSqlSessionUtil.getSqlSessionFactory();
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        // 获取mapper接口
+        SingleMapper singleMapper = sqlSession.getMapper(SingleMapper.class);
+        System.out.println(singleMapper.getByNameAge("aaa", 10));
+    }
+
+    /**
+     * 参数：多基本类型，多个返回值
+     * @throws IOException
+     */
+    @Test
+    public void getByName() throws IOException {
+        SqlSessionFactory sqlSessionFactory = MybatisSqlSessionUtil.getSqlSessionFactory();
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        // 获取mapper接口
+        SingleMapper singleMapper = sqlSession.getMapper(SingleMapper.class);
+        System.out.println(singleMapper.getByName("aaa"));
+    }
+
+    @Test
+    public void getByObj() throws IOException {
+        SqlSessionFactory sqlSessionFactory = MybatisSqlSessionUtil.getSqlSessionFactory();
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        Single single = new Single();
+        single.setId((long) 1);
+
+        // 获取mapper接口
+        SingleMapper singleMapper = sqlSession.getMapper(SingleMapper.class);
+        System.out.println(singleMapper.getByObj(single));
+    }
+
+
+
+
 }
