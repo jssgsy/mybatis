@@ -13,10 +13,11 @@
     <resultMap id="singleMap" type="Single">
         <!-- 虽然select中是b_id，但这里column的值可以直接写成id -->
         <id column="id" jdbcType="INTEGER" property="id"/>
-        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <!--最好为需要特殊类型转换处理的字段显示指定typeHandler-->
+        <result column="name" property="name" typeHandler="com.miaxis.typehandler.VarCharToStringTypeHandler"/>
         <!--如果是基本类型，则jdbcType可省略-->
         <result column="age" property="age"/>
-        <result column="address" property="address"/>
+        <result column="address" property="address" typeHandler="com.miaxis.typehandler.VarCharToStringTypeHandler"/>
     </resultMap>
 
     <!--适用于表中字段名与实体类中对应的字段名一模一样-->

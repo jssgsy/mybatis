@@ -19,6 +19,14 @@
         <typeAlias type="com.miaxis.entity.Single" alias="Single"/>
     </typeAliases>
 
+    <!--类型转换器-->
+    <typeHandlers>
+        <typeHandler handler="com.miaxis.typehandler.VarCharToStringTypeHandler"/>
+
+        <!--自动扫描并注册某个包下的类型转换器-->
+        <!--<package name="com.miaxis.typehandler"/>-->
+    </typeHandlers>
+
     <!--注意，顺序有讲究，必须在environments标签之前-->
     <plugins>
         <!--引入mybatis的分页拦截器-->
