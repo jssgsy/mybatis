@@ -25,7 +25,8 @@ import org.apache.ibatis.type.MappedTypes;
 
 /*
 1. 这里比较绕，如果没有@MappedJdbcTypes和@MappedTypes，则resultType与resultMap中都能起作用；
-2. 如果使用了@MappedJdbcTypes，则使用resultType时类型转换器不起作用；且在resultMap需要对相应属性显示指定typeHandler，否则不生效
+2. 如果使用了@MappedJdbcTypes，则使用resultType时类型转换器不起作用；且在resultMap需要对相应属性显示指定typeHandler，否则不生效；
+3. 经验：返回结果集时均使用resultMap不要使用resultType;
  */
 
 // @MappedJdbcTypes(JdbcType.VARCHAR)
