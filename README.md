@@ -46,3 +46,10 @@ generatorConfig.xml是MBG的核心配置文件,放在classpath下。
 ## maven运行方法
 
 **mvn mybatis-generator:generate**
+
+## MBG默认生成文件
+MBG默认会生成四个文件
+* Xxx.java，即和数据库表对应的JavaBean；
+* XxxMapper.java，即Xxx对应的Dao层的接口；（Mapper后缀可配置）
+* XxxExample.java，供XxxMapper.java使用的查询对象；（Example后缀可配置）
+* XxxMapper.xml文件，即对应的xml配置文件；
