@@ -19,6 +19,12 @@
         <typeAlias type="com.miaxis.entity.Single" alias="Single"/>
     </typeAliases>
 
+    <!--注意，顺序有讲究，必须在environments标签之前-->
+    <plugins>
+        <!--引入mybatis的分页拦截器-->
+        <plugin interceptor="com.github.pagehelper.PageInterceptor"></plugin>
+    </plugins>
+
     <environments default="development">
         <environment id="development">
             <transactionManager type="JDBC"/>

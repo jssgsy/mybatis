@@ -1,12 +1,17 @@
-import com.miaxis.entity.Single;
-import com.miaxis.mapper.SingleMapper;
-import com.miaxis.util.MybatisSqlSessionUtil;
+import java.io.IOException;
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.junit.Test;
 
-import java.io.IOException;
-import java.util.List;
+import com.github.pagehelper.ISelect;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.miaxis.entity.Single;
+import com.miaxis.mapper.SingleMapper;
+import com.miaxis.util.MybatisSqlSessionUtil;
 
 /**
  * mybatis-测试单个实体类
@@ -190,6 +195,128 @@ public class SingleTest {
         // 获取mapper接口
         SingleMapper singleMapper = sqlSession.getMapper(SingleMapper.class);
         System.out.println(singleMapper.getByObj(single));
+    }
+
+    /**
+     * 最简单的分页使用1：// 只需要在分页方法前调用PageHelper.startPage设置page与pageSize即可
+     * @throws IOException
+     */
+    @Test
+    public void usePage1() throws IOException {
+        SqlSessionFactory sqlSessionFactory = MybatisSqlSessionUtil.getSqlSessionFactory();
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        // 获取mapper接口
+        final SingleMapper singleMapper = sqlSession.getMapper(SingleMapper.class);
+
+        int page = 1;
+        int pageSize = 2;
+
+        // 只需要在分页方法前调用PageHelper.startPage设置page与pageSize即可
+        PageHelper.startPage(page, pageSize);
+
+        // 1. 这里的list真正类型为Page，因为被拦截了；2. 如果没有上句，则这里会查出所有的数据
+        List<Single> list = singleMapper.getByName("aaa");
+        for (Single single : list) {
+            System.out.println(single);
+        }
+
+        // 用这种方式没法获取到page，pageSize，pages,total等数据，不建议用；
+    }
+
+    /**
+     * 最简单的分页使用2，使用Page<T>对象
+     * @throws IOException
+     */
+    @Test
+    public void usePage2() throws IOException {
+        SqlSessionFactory sqlSessionFactory = MybatisSqlSessionUtil.getSqlSessionFactory();
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        // 获取mapper接口
+        final SingleMapper singleMapper = sqlSession.getMapper(SingleMapper.class);
+
+        int page = 1;
+        int pageSize = 3;
+        // 注意，这里是doSelectPage，返回的是Page<Single>，重点：Page继承自ArrayList
+        Page<Single> list = PageHelper.startPage(page, pageSize).doSelectPage(new ISelect() {
+            public void doSelect() {
+                singleMapper.getByName("aaa");
+            }
+        });
+        // 使用lambda表达式
+        /*Page<Single> list = PageHelper.startPage(page, pageSize).doSelectPage(() -> singleMapper.getByName("aaa"););*/
+
+        // 重点：Page继承自ArrayList，Page就是一个ArrayList,所以可通过遍历list来获取查询出的分页数据
+        for (Single single : list) {
+            System.out.println(single);
+        }
+
+        // 可以用Page中获取到pageNum(page)，pageSize,total,pages(有多少页)等等
+        System.out.println(list.getPageNum());
+        System.out.println(list.getPageSize());
+        System.out.println(list.getTotal());
+        System.out.println(list.getPages());
+    }
+
+    /**
+     * 最简单的分页使用2，使用PageInfo<T>对象
+     * @throws IOException
+     */
+    @Test
+    public void usePage3() throws IOException {
+        SqlSessionFactory sqlSessionFactory = MybatisSqlSessionUtil.getSqlSessionFactory();
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        // 获取mapper接口
+        final SingleMapper singleMapper = sqlSession.getMapper(SingleMapper.class);
+
+        int page = 1;
+        int pageSize = 4;
+
+        PageHelper.startPage(page, pageSize);
+        // 注意：其实此时list是Page类型
+        List<Single> list = singleMapper.getByName("aaa");
+        // 包装成PageInfo对象，作用，可以获取page,pageSize,total,pages等参数
+        PageInfo<Single> pageInfo = new PageInfo<Single>(list);
+        System.out.println(pageInfo.getPageNum());
+        System.out.println(pageInfo.getPageSize());
+        System.out.println(pageInfo.getTotal());
+        System.out.println(pageInfo.getPages());
+
+        // 因为list实际上是Page类型(继承自ArrayList)，用遍历
+        for (Single single : list) {
+            System.out.println(single);
+        }
+    }
+
+    /**
+     * 最简单的分页使用2，使用PageInfo<T>对象
+     * @throws IOException
+     */
+    @Test
+    public void usePage4() throws IOException {
+        SqlSessionFactory sqlSessionFactory = MybatisSqlSessionUtil.getSqlSessionFactory();
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        // 获取mapper接口
+        final SingleMapper singleMapper = sqlSession.getMapper(SingleMapper.class);
+
+        int page = 1;
+        int pageSize = 3;
+
+        PageHelper.startPage(page, pageSize);
+        // 注意，这里是doSelectPageInfo，返回的是PageInfo<Single>，重点：PageInfo有个list字段存放了分页的数据
+        PageInfo<Single> pageInfo = PageHelper.startPage(page, pageSize).doSelectPageInfo(new ISelect() {
+            public void doSelect() {
+                singleMapper.getByName("aaa");
+            }
+        });
+        System.out.println(pageInfo.getPageNum());
+        System.out.println(pageInfo.getPageSize());
+        System.out.println(pageInfo.getTotal());
+        System.out.println(pageInfo.getPages());
+
+        // pageInfo.getList()返回的list真正类型为Page
+        for (Single single : pageInfo.getList()) {
+            System.out.println(single);
+        }
     }
 
 

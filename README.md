@@ -53,3 +53,52 @@ MBG默认会生成四个文件
 * XxxMapper.java，即Xxx对应的Dao层的接口；（Mapper后缀可配置）
 * XxxExample.java，供XxxMapper.java使用的查询对象；（Example后缀可配置）
 * XxxMapper.xml文件，即对应的xml配置文件；
+
+# mybatis中使用pagehelper分页
+[github地址](https://github.com/pagehelper/Mybatis-PageHelper)
+## 使用前步骤
+maven依赖
+```
+<dependency>
+    <groupId>com.github.pagehelper</groupId>
+    <artifactId>pagehelper</artifactId>
+    <version>5.1.2</version>
+</dependency>
+```
+
+mybatis的配置文件(mybatis-config.xml)中配置拦截器
+```
+<!--注意，plugins标签的位置顺序很有讲究，必须在environments标签之前-->
+<plugins>
+    <!--引入mybatis的分页拦截器-->
+    <plugin interceptor="com.github.pagehelper.PageInterceptor"></plugin>
+</plugins>
+```
+
+## 使用
+* Page继承自ArrayList，所以Page就是一个ArrayList，分页的结果集就在这里面；
+* 查询方法必须紧跟在PageHelper.startPage(page, pageSize)之后，否则可能不安全；
+如下是不安全的：
+```
+PageHelper.startPage(1, 10);
+List<Country> list;
+if(param1 != null){
+    list = countryMapper.selectIf(param1);
+} else {
+    list = new ArrayList<Country>();
+}
+```
+> 这种情况下由于 param1 存在 null 的情况，就会导致 PageHelper 生产了一个分页参数，但是没有被消费，这个参数就会一直保留在这个线程上。当这个线程再次被使用时，就可能导致不该分页的方法去消费这个分页参数，这就产生了莫名其妙的分页。
+
+
+如下是安全的：
+```
+List<Country> list;
+if(param1 != null){
+    PageHelper.startPage(1, 10);
+    list = countryMapper.selectIf(param1);
+} else {
+    list = new ArrayList<Country>();
+}
+```
+* 使用ISelect的方式是安全的，参见SingleTest::usePage4测试用例，推荐使用ISelect；
