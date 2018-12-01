@@ -102,3 +102,25 @@ if(param1 != null){
 }
 ```
 * 使用ISelect的方式是安全的，参见SingleTest::usePage4测试用例，推荐使用ISelect；
+
+# TypeHandler
+作用：java类型的对象存储为数据库中的数据，数据库中的数据取出映射成java类型的对象，都是通过TypeHandler完成的，即TypeHandler将java type和jdbc type进行相互映射。
+## 自定义TypeHandler的步骤
+1. 继承自BaseTypeHandler<E>即可(或者实现org.apache.ibatis.type.TypeHandler接口)；
+2. 在mybatis的配置文件(mybatis-config.xml)中配置TypeHandler，如下：
+```xml
+<!--类型转换器-->
+<typeHandlers>
+    <typeHandler handler="com.miaxis.typehandler.VarCharToStringTypeHandler"/>
+
+    <!--自动扫描并注册某个包下的类型转换器-->
+    <!--<package name="com.miaxis.typehandler"/>-->
+</typeHandlers>
+```
+
+## 说明
+* TypeHandler似乎有点混乱；
+* resultMap中最好显示指定typeHandler，如果在TypeHandler上使用了@MappedJdbcTypes(JdbcType.VARCHAR)，则返回集使用resultType进行映射时TypeHandler不起作用(这里的原理没有弄懂);
+
+
+
