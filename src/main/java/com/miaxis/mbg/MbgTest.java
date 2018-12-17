@@ -43,6 +43,7 @@ public class MbgTest {
          */
         BlogExample blogExample = new BlogExample();
         BlogExample.Criteria criteria = blogExample.createCriteria();
+        // 这里可链式调用
         criteria.andTitleEqualTo("blogTitle3");
 
 
