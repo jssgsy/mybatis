@@ -75,7 +75,7 @@ public class BlogTest {
     public void getBlogById() throws IOException{
         SqlSessionFactory sqlSessionFactory = MybatisSqlSessionUtil.getSqlSessionFactory();
         SqlSession sqlSession = sqlSessionFactory.openSession();
-        Blog blog = sqlSession.selectOne("BlogMapper.selectBlogById", 7);
+        Blog blog = sqlSession.selectOne("BlogMapper.selectBlogById", 5);
         System.out.println(blog.getTitle());
         System.out.println(blog.getContent());
         sqlSession.commit();

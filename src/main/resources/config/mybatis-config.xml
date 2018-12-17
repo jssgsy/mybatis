@@ -61,6 +61,9 @@
          -->
         <mapper class="com.miaxis.mapper.SingleMapper"/>
 
+        <!--注意，如果删除了mbg生成的各种文件，记得这里注释一下-->
+        <mapper class="mapper.BlogMapper"/>
+
         <!--3. 将包内的映射器接口实现全部注册为映射器，即此包下的所有接口都会被自动注册，是上述2的简化写法，不适应于mapper文件的引入 -->
         <!--<package name="com.xxx"/>-->
 
