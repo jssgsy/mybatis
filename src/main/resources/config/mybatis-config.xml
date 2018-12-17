@@ -55,7 +55,10 @@
         <mapper resource="config/BlogChildMapper.xml"/>
         <mapper resource="config/SingleMapper.xml"/>
 
-        <!--2. 使用映射器接口实现类的完全限定类名，即使用接口注解的方式 -->
+        <!--2. 使用映射器接口实现类的完全限定类名，即使用接口注解的方式
+            注意，上面引入了config/SingleMapper.xml，说明xml方式和接口方式可以同时引入使用，
+            实践证明，两者会被合并，所以：不要在两者中定义相同的方法，否则会报错，见SingleMapper接口中的totalCount方法
+         -->
         <mapper class="com.miaxis.mapper.SingleMapper"/>
 
         <!--3. 将包内的映射器接口实现全部注册为映射器，即此包下的所有接口都会被自动注册，是上述2的简化写法，不适应于mapper文件的引入 -->

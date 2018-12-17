@@ -53,4 +53,12 @@ public interface SingleMapper {
      */
     @Select("select * from single where id = #{id}")
     Single getByObj(Single single);
+
+    /**
+     * SingleMapper.xml文件中已经定义了totalCount，所以这里不能再定义
+     * @param single
+     * @return
+     */
+    /*@Select("select count(*) from single")
+    Single totalCount(Single single);*/
 }
