@@ -2,7 +2,8 @@
 <!DOCTYPE generatorConfiguration
         PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
         "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
-        
+
+<!--配置项参见：http://www.mybatis.org/generator/configreference/xmlconfig.html-->
 <generatorConfiguration>
 
     <!--导入属性文件(名字任取),相对于类路径,这里没起作用-->
@@ -31,8 +32,10 @@
 
         <!--存放自动生成的XxxMapper(BlogMapper.java)接口类的地方.
            注意type的值不同生成的接口类型有很大不同,如这里指定为XMLMAPPER,
-           则说明生成的是不带注解的mapper接口,需要依赖xml映射文件。
+           则说明生成的是不带注解的mapper接口,需要依赖生成的xml映射文件。
            javaClientGenerator标签的顺序有讲究,必须放在sqlMapGenerator标签之后。
+
+           如果是ANNOTATEDMAPPER，则没有xml配置文件会生成，生成的是带注解的mapper接口
        -->
         <javaClientGenerator type="XMLMAPPER" targetPackage="mapper"  targetProject="src/main/java">
         </javaClientGenerator>
