@@ -8,6 +8,9 @@
 4. **表需要先存在**,表之间的关系也需要在数据库中已经建立好（见第2点）；
 5. 和数据库打交道的是`SqlSession`实例，SqlSession可从SqlSessionFactory中得到;
 6. static语句块在制作util包中可能很有用；
+7. update与delete语句的返回值：有rows affected(行记录内容实际有修改的行数)与Rows matched(where语句匹配到的行数)之说，
+mybatis的update与delete`默认返回的是Rows matched`，可通过在数据库url上加上`useAffectedRows=true`来指定返回的是`rows affected`(jdbc:mysql://${jdbc.host}/${jdbc.db}?useAffectedRows=true)
+
 
 
 # 使用xml方式与接口注解方式
