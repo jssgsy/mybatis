@@ -20,9 +20,10 @@ jobs:
         uses: Yikun/hub-mirror-action@master
         if: env.dst_key && env.dst_token && env.gitee_user
         with:
-          src: 'github/${{ github.repository_owner }}'
-          dst: 'gitee/${{ secrets.GITEE_USER }}'
+          src: 'github/${{ github.repository_owner }}/${{ github.event.repository.name }}'
+          dst: 'gitee/${{ secrets.GITEE_USER }}/${{ github.event.repository.name }}'
           dst_key: ${{ secrets.GITEE_PRIVATE_KEY }}
-          dst_token:  ${{ secrets.GITEE_TOKEN }}
-          account_type: user
-          static_list: ${{ github.event.repository.name }}
+          static_list: "${{ github.event.repository.name }}"
+          force_update: true
+        env:
+          GIT_SSH_COMMAND: "ssh -o StrictHostKeyChecking=no"
