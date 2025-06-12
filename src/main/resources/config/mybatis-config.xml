@@ -11,9 +11,9 @@
         <property name="driver" value="com.mysql.jdbc.Driver"/>
         <!--如果加上参数useAffectedRows=true，则update与delete语句返回的是实际受影响的行数，而不是默认的匹配到的行数
         jdbc:mysql://localhost:3306/mybatis?useAffectedRows=true-->
-        <property name="url" value="jdbc:mysql://localhost:3306/mybatis?useAffectedRows=true"/>
-        <property name="username" value="test"/>
-        <property name="password" value="123"/>
+        <property name="url" value="jdbc:mysql://localhost:3316/mybatis?useAffectedRows=true"/>
+        <property name="username" value="root"/>
+        <property name="password" value="root"/>
     </properties>
 
     <!--别名定义-->

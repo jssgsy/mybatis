@@ -11,7 +11,8 @@ import java.util.List;
  */
 public interface SingleMapper {
 
-    @Select("select count(id) from single")
+    // mapper文件中已经有此id了，不能重复
+    // @Select("select count(id) from single")
     Integer totalCount();
 
     /**
@@ -19,7 +20,7 @@ public interface SingleMapper {
      * @param id 注意，这里不用@Param
      * @return 会自动映射成返回值类型Single
      */
-    @Select("select * from single where id = #{id}")
+    // @Select("select * from single where id = #{id}")
     Single getById(Long id);
 
 
